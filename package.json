@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
+    "build": "rollup -c",
     "test": "nyc --reporter=lcov ava",
     "coverage": "codecov"
   },
