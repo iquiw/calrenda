@@ -42,13 +42,11 @@ export class Period {
   }
 
   intersect(other) {
-    const period = this.extend();
-    other = other.extend();
     return (
-      (period.start.compareTo(other.start) >= 0 &&
-        period.start.compareTo(other.end) < 0) ||
-      (other.start.compareTo(period.start) >= 0 &&
-        other.start.compareTo(period.end) < 0)
+      (this.start.compareTo(other.start) >= 0 &&
+        this.start.compareTo(other.end) < 0) ||
+      (other.start.compareTo(this.start) >= 0 &&
+        other.start.compareTo(this.end) < 0)
     );
   }
 }

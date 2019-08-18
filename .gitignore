@@ -1,4 +1,5 @@
 .tern-port
+/.nyc_output/
 /node_modules/
 /bundle.js
 *.map
