@@ -1,43 +1,47 @@
 import { Time, Period } from './time';
 
-export class Entry {
+type PeriodTuple = [[number, number], [number, number]];
+type Options = { color?: string };
+
+export abstract class Entry {
+  readonly period: Period;
   readonly color: string;
 
-  constructor(readonly summary: string, readonly period: Period, options = {}) {
+  constructor(readonly summary: string, [start, end]: PeriodTuple, options?: Options) {
     this.summary = summary;
-    this.period = period;
+    this.period = new Period(new Time(start[0], start[1]), new Time(end[0], end[1]));
     this.color = options && options.color || '#ff8';
   }
 
-  getStart() {
+  get start(): Time {
     return this.period.start;
   }
 
-  getEnd() {
+  get end(): Time {
     return this.period.end;
   }
 
-  getPeriod() {
+  get periodString(): string {
     return this.period.toString();
   }
 
-  intersect(other) {
+  intersect(other: Entry): boolean {
     return this.period.intersect(other.period);
   }
 }
 
 export class PeriodEntry extends Entry {
-  constructor(summary, period, options) {
+  constructor(summary: string, period: PeriodTuple, options?: Options) {
     super(summary, period, options);
   }
 }
 
 export class AllDayEntry extends Entry {
-  constructor(summary, options) {
-    super(summary, new Period(new Time(0, 0), new Time(24, 0)), options);
+  constructor(summary: string, options?: Options) {
+    super(summary, [[0, 0], [24, 0]], options);
   }
 
-  getPeriod() {
+  get periodString() {
     return '終日';
   }
 }
@@ -49,11 +53,11 @@ export class CalRendaModel {
     this.entryRows = [];
   }
 
-  getRowCount() {
+  get rowCount(): number {
     return this.entryRows.length;
   }
 
-  addEntry(entry) {
+  addEntry(entry: Entry): number {
     let row = 0;
     for (; row < this.entryRows.length; row++) {
       let intersect = false;
@@ -74,7 +78,7 @@ export class CalRendaModel {
     return row;
   }
 
-  *entries() {
+  *entries(): IterableIterator<[number, Entry]> {
     let row = 0;
     for (let entryRow of this.entryRows) {
       for (let entry of entryRow) {
