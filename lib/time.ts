@@ -1,19 +1,19 @@
 export class Time {
   constructor(readonly hour: number = 0, readonly minute: number = 0) {}
 
-  diff(other) {
+  diff(other: Time): number {
     return this.toMinute() - other.toMinute();
   }
 
-  private toMinute() {
+  private toMinute(): number {
     return this.hour * 60 + this.minute;
   }
 
-  compareTo(other) {
+  compareTo(other: Time): number {
     return this.diff(other);
   }
 
-  toString() {
+  toString(): string {
     let s = '' + this.hour + ':';
     if (this.minute < 10) {
       s += '0';
@@ -26,11 +26,11 @@ export class Time {
 export class Period {
   constructor(readonly start: Time, readonly end: Time) {}
 
-  toString() {
+  toString(): string {
     return this.start.toString() + ' ~ ' + this.end.toString();
   }
 
-  extend() {
+  extend(): Period {
     const diff = this.end.diff(this.start);
     if (diff < 60) {
       return new Period(
@@ -41,7 +41,7 @@ export class Period {
     return new Period(this.start, this.end);
   }
 
-  intersect(other) {
+  intersect(other: Period): boolean {
     return (
       (this.start.compareTo(other.start) >= 0 &&
         this.start.compareTo(other.end) < 0) ||
