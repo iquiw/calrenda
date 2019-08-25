@@ -1,6 +1,7 @@
-import { SVG } from '@svgdotjs/svg.js';
+import { SVG, Svg } from '@svgdotjs/svg.js';
 
-import { CalRendaModel } from './model';
+import { CalRendaModel, Entry } from './model';
+import { Time } from './time';
 
 const HOUR_WIDTH = 100;
 const MIN15_WIDTH = HOUR_WIDTH / 4;
@@ -14,11 +15,11 @@ const END_HOUR = 19;
 export class CalRenda {
   private width: number;
   private height: number;
-  private draw;
+  private draw: Svg;
 
   constructor(id: string, private model: CalRendaModel) {
     this.width = HOUR_WIDTH * (END_HOUR - START_HOUR);
-    this.height = model.getRowCount() * ROW_HEIGHT + 40;
+    this.height = model.rowCount * ROW_HEIGHT + 40;
     this.draw = SVG().addTo(id).size(this.width, this.height);
   }
 
@@ -29,7 +30,7 @@ export class CalRenda {
     }
   }
 
-  drawBorder(x0, y0, x1, y1) {
+  drawBorder(x0: number, y0: number, x1: number, y1: number) {
     this.draw.line(x0, y0, x1, y1).stroke({ color: STROKE_COLOR, width: 1 });
   }
 
@@ -46,9 +47,9 @@ export class CalRenda {
     this.drawBorder(0, HEADER_HEIGHT, this.width, HEADER_HEIGHT);
   }
 
-  drawEntry(row, entry) {
-    let x0 = this.timeToOffset(entry.getStart());
-    let x1 = this.timeToOffset(entry.getEnd());
+  drawEntry(row: number, entry: Entry) {
+    let x0 = this.timeToOffset(entry.start);
+    let x1 = this.timeToOffset(entry.end);
     let width = x1 - x0;
 
     this.draw
@@ -57,18 +58,17 @@ export class CalRenda {
     let text = entry.summary;
     let textLen = text.length;
     let maxTextLen = Math.max((width - 5) / 14 - 1, HOUR_WIDTH / 14);
-    console.log(textLen, maxTextLen);
     if (textLen > maxTextLen) {
       text = text.substring(0, maxTextLen) + '..';
     }
     this.draw.text(text).font({ size: '14' }).dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row);
-    this.draw.text(entry.getPeriod())
+    this.draw.text(entry.periodString)
       .font({ size: '12' })
       .attr({ fill: '#666' })
       .dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row + 20);
   }
 
-  timeToOffset(time) {
+  timeToOffset(time: Time) {
     let hour = time.hour;
     let min = time.minute;
 
