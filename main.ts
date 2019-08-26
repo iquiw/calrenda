@@ -1,15 +1,20 @@
 import { CalRendaModel, AllDayEntry, PeriodEntry } from './lib/model';
 import { CalRenda } from './lib/renda';
-import { Period, Time } from './lib/time';
 
 window.document.addEventListener('DOMContentLoaded', function() {
   let model = new CalRendaModel();
 
-  model.addEntry(new PeriodEntry('ミーティング', new Period(new Time(9, 15), new Time(11))));
-  model.addEntry(new PeriodEntry('外出はあまりしないがたまにないこともない', new Period(new Time(13, 45), new Time(15, 30)), { color: '#fbf' }));
-  model.addEntry(new PeriodEntry('会議', new Period(new Time(13, 45), new Time(15, 30))));
-  model.addEntry(new PeriodEntry('健康診断', new Period(new Time(9), new Time(12)), { color: '#fbf' }));
-  model.addEntry(new PeriodEntry('健康診断', new Period(new Time(9), new Time(12)), { color: '#bff' }));
+  model.addEntry(new PeriodEntry('ミーティング', [[9, 15], [11, 0]]));
+  model.addEntry(new PeriodEntry('外出はあまりしないがたまにないこともない', [[13, 45], [15, 30]], { color: '#fbf' }));
+  model.addEntry(new PeriodEntry('会議', [[13, 45], [15, 30]]));
+  model.addEntry(new PeriodEntry('会議', [[14, 0], [15, 0]]));
+  model.addEntry(new PeriodEntry('会議', [[13, 0], [16, 0]]));
+  model.addEntry(new PeriodEntry('会議', [[13, 0], [14, 0]]));
+  model.addEntry(new PeriodEntry('会議', [[14, 0], [16, 0]]));
+  model.addEntry(new PeriodEntry('健康診断', [[9, 0], [12, 0]], { color: '#fbf' }));
+  model.addEntry(new PeriodEntry('健康診断', [[9, 0], [12, 0]], { color: '#bff' }));
+  model.addEntry(new PeriodEntry('ミーティング', [[10, 0], [10, 15]]));
+  model.addEntry(new PeriodEntry('ミーティング', [[10, 15], [10, 30]]));
   model.addEntry(new AllDayEntry('休暇', { color: '#fbb' }));
 
   let renda = new CalRenda('#drawing', model);
