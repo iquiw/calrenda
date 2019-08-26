@@ -7,6 +7,7 @@ const HOUR_WIDTH = 100;
 const MIN15_WIDTH = HOUR_WIDTH / 4;
 const HEADER_HEIGHT = 20;
 const ROW_HEIGHT = 50;
+const HEADER_COLOR = '#eee';
 const STROKE_COLOR = '#aac';
 
 const START_HOUR = 8;
@@ -35,16 +36,17 @@ export class CalRenda {
   }
 
   drawHeader() {
-    this.drawBorder(0, 1, this.width, 1);
     let offset = 0;
     for (let i = START_HOUR; i < END_HOUR; i++) {
+      this.draw
+        .rect(HOUR_WIDTH, HEADER_HEIGHT - 1)
+        .attr({ fill: HEADER_COLOR, stroke: STROKE_COLOR, x: offset, y: 1 });
       if (i > START_HOUR) {
-        this.drawBorder(offset, 0, offset, this.height);
+        this.drawBorder(offset, 1, offset, this.height);
       }
       this.draw.text(`${i}:00`).dx(offset + 5).dy(-5);
       offset += HOUR_WIDTH;
     }
-    this.drawBorder(0, HEADER_HEIGHT, this.width, HEADER_HEIGHT);
   }
 
   drawEntry(row: number, entry: Entry) {
