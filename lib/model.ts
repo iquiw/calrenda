@@ -25,8 +25,10 @@ export abstract class Entry {
     return this.period.toString();
   }
 
-  intersect(other: Entry): boolean {
-    return this.period.intersect(other.period);
+  extendedIntersect(other: Entry): boolean {
+    let extended = this.period.extend();
+    let otherExtended = other.period.extend();
+    return extended.intersect(otherExtended);
   }
 }
 
@@ -62,7 +64,7 @@ export class CalRendaModel {
     for (; row < this.entryRows.length; row++) {
       let intersect = false;
       for (let other of this.entryRows[row]) {
-        if (entry.intersect(other)) {
+        if (entry.extendedIntersect(other)) {
           intersect = true;
           break;
         }

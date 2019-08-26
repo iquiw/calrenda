@@ -124,3 +124,18 @@ test('model multiple entry additions with and without intersect', t => {
   t.deepEqual(entries.next().value, [2, entry5]);
   t.true(entries.next().done);
 });
+
+test('model entry less than 1 hour period with intersect', t => {
+  const entry1 = new PeriodEntry('summary1', [[1, 0], [1, 15]]);
+  const entry2 = new PeriodEntry('summary2', [[1, 15], [1, 30]]);
+  const model = new CalRendaModel();
+  model.addEntry(entry1);
+  model.addEntry(entry2);
+
+  t.is(model.rowCount, 2);
+  const entries = model.entries();
+  t.deepEqual(entries.next().value, [0, entry1]);
+  t.deepEqual(entries.next().value, [1, entry2]);
+  t.true(entries.next().done);
+});
+
