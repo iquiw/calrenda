@@ -1,7 +1,7 @@
 import { SVG, Svg } from '@svgdotjs/svg.js';
 
-import { CalRendaModel, Entry } from './model';
-import { Time } from './time';
+import { CalRendaModel, Entry, ExtendedPeriodCollision } from './model';
+import { Time, Period } from './time';
 
 const HOUR_WIDTH = 100;
 const MIN15_WIDTH = HOUR_WIDTH / 4;
@@ -12,6 +12,30 @@ const STROKE_COLOR = '#aac';
 
 const START_HOUR = 8;
 const END_HOUR = 19;
+
+const FONT_SIZE = 14;
+
+export class CalEntryCollision extends ExtendedPeriodCollision {
+  collide(entry1: Entry, entry2: Entry): boolean {
+    let period1 = this.extendedPeriod(entry1);
+    let period2 = this.extendedPeriod(entry2);
+    return super.periodCollide(period1, period2);
+  }
+
+  private extendedPeriod(entry: Entry): Period {
+    let period = entry.period;
+    let textLen = entry.summary.length * FONT_SIZE;
+    let periodLen = entry.end.diff(entry.start) / 60 * HOUR_WIDTH;
+    if (textLen > periodLen) {
+      let hour = Math.floor(textLen / HOUR_WIDTH + entry.start.hour + entry.start.minute / 60);
+      let minute = Math.floor(textLen % HOUR_WIDTH * 60 / HOUR_WIDTH);
+      return new Period(
+        new Time(period.start.hour, period.start.minute),
+        new Time(hour, minute));
+    }
+    return period;
+  }
+}
 
 export class CalRenda {
   private width: number;
@@ -52,18 +76,13 @@ export class CalRenda {
   drawEntry(row: number, entry: Entry) {
     let x0 = this.timeToOffset(entry.start);
     let x1 = this.timeToOffset(entry.end);
-    let width = x1 - x0;
 
     this.draw
       .rect(x1 - x0, ROW_HEIGHT)
       .attr({ fill: entry.color, stroke: STROKE_COLOR, opacity: 0.8, x: x0, y: HEADER_HEIGHT + ROW_HEIGHT * row });
-    let text = entry.summary;
-    let textLen = text.length;
-    let maxTextLen = Math.max((width - 5) / 14 - 1, HOUR_WIDTH / 14);
-    if (textLen > maxTextLen) {
-      text = text.substring(0, maxTextLen) + '..';
-    }
-    this.draw.text(text).font({ size: '14' }).dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row);
+    this.draw.text(entry.summary)
+      .font({ size: FONT_SIZE })
+      .dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row);
     this.draw.text(entry.periodString)
       .font({ size: '12' })
       .attr({ fill: '#666' })

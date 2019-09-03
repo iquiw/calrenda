@@ -3,6 +3,20 @@ import { Time, Period } from './time';
 type PeriodTuple = [[number, number], [number, number]];
 type Options = { color?: string };
 
+export interface EntryCollision {
+  collide(entry1: Entry, entry2: Entry): boolean;
+}
+
+export class ExtendedPeriodCollision implements EntryCollision {
+  collide(entry1: Entry, entry2: Entry): boolean {
+    return this.periodCollide(entry1.period, entry2.period);
+  }
+
+  protected periodCollide(period1: Period, period2: Period) : boolean {
+    return period1.extend().intersect(period2.extend());
+  }
+}
+
 export abstract class Entry {
   readonly period: Period;
   readonly color: string;
@@ -23,12 +37,6 @@ export abstract class Entry {
 
   get periodString(): string {
     return this.period.toString();
-  }
-
-  extendedIntersect(other: Entry): boolean {
-    let extended = this.period.extend();
-    let otherExtended = other.period.extend();
-    return extended.intersect(otherExtended);
   }
 }
 
@@ -51,7 +59,7 @@ export class AllDayEntry extends Entry {
 export class CalRendaModel {
   private entryRows: Entry[][];
 
-  constructor() {
+  constructor(private collision: EntryCollision = new ExtendedPeriodCollision()) {
     this.entryRows = [];
   }
 
@@ -64,7 +72,7 @@ export class CalRendaModel {
     for (; row < this.entryRows.length; row++) {
       let intersect = false;
       for (let other of this.entryRows[row]) {
-        if (entry.extendedIntersect(other)) {
+        if (this.collision.collide(entry, other)) {
           intersect = true;
           break;
         }
