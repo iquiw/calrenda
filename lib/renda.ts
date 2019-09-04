@@ -4,7 +4,6 @@ import { CalRendaModel, Entry, ExtendedPeriodCollision } from './model';
 import { Time, Period } from './time';
 
 const HOUR_WIDTH = 100;
-const MIN15_WIDTH = HOUR_WIDTH / 4;
 const HEADER_HEIGHT = 20;
 const ROW_HEIGHT = 50;
 const HEADER_COLOR = '#eee';
@@ -93,7 +92,7 @@ export class CalRenda {
     let hour = time.hour;
     let min = time.minute;
 
-    let offset = (hour - START_HOUR) * HOUR_WIDTH + (min / 15) * MIN15_WIDTH;
+    let offset = (hour - START_HOUR + (min / 60)) * HOUR_WIDTH;
     if (offset < 0) {
       offset = -1;
     } else if (offset > this.width) {
