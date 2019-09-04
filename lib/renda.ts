@@ -1,4 +1,4 @@
-import { SVG, Svg } from '@svgdotjs/svg.js';
+import { Svg } from '@svgdotjs/svg.js';
 
 import { CalRendaModel, Entry, ExtendedPeriodCollision } from './model';
 import { Time, Period } from './time';
@@ -42,10 +42,10 @@ export class CalRenda {
   private height: number;
   private draw: Svg;
 
-  constructor(id: string, private model: CalRendaModel) {
+  constructor(elem: HTMLElement, private model: CalRendaModel) {
     this.width = HOUR_WIDTH * (END_HOUR - START_HOUR);
     this.height = model.rowCount * ROW_HEIGHT + 40;
-    this.draw = SVG().addTo(id).size(this.width, this.height);
+    this.draw = new Svg().addTo(elem).size(this.width, this.height);
   }
 
   drawCal() {

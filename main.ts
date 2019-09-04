@@ -1,3 +1,5 @@
+import { SVG } from '@svgdotjs/svg.js';
+
 import { CalRendaModel, AllDayEntry, PeriodEntry } from './lib/model';
 import { CalEntryCollision, CalRenda } from './lib/renda';
 
@@ -19,6 +21,6 @@ window.document.addEventListener('DOMContentLoaded', function() {
   model.addEntry(new PeriodEntry('ミーティング', [[11, 0], [11, 30]]));
   model.addEntry(new AllDayEntry('休暇', { color: '#fbb' }));
 
-  let renda = new CalRenda('#drawing', model);
+  let renda = new CalRenda(document.getElementById('drawing'), model);
   renda.drawCal();
 });
