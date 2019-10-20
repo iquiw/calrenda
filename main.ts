@@ -1,5 +1,3 @@
-import { SVG } from '@svgdotjs/svg.js';
-
 import { CalRendaModel, AllDayEntry, PeriodEntry } from './lib/model';
 import { CalEntryCollision, CalRenda } from './lib/renda';
 
