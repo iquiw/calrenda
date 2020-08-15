@@ -1,12 +1,13 @@
 import test from 'ava';
 
-const window = require('svgdom');
+const { createSVGWindow } = require('svgdom');
 const { registerWindow } = require('@svgdotjs/svg.js');
 
 import { Time } from '../lib/time';
 import { CalRendaModel } from '../lib/model';
 import { CalRenda } from '../lib/renda';
 
+const window = createSVGWindow();
 const document = window.document;
 registerWindow(window, document);
 const canvas = document.documentElement;
