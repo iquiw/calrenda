@@ -67,7 +67,7 @@ export class CalRenda {
       if (i > START_HOUR) {
         this.drawBorder(offset, 1, offset, this.height);
       }
-      this.draw.text(`${i}:00`).dx(offset + 5).dy(-5);
+      this.draw.text(`${i}:00`).dx(offset + 5).dy(16);
       offset += HOUR_WIDTH;
     }
   }
@@ -81,7 +81,7 @@ export class CalRenda {
       .attr({ fill: entry.color, stroke: STROKE_COLOR, opacity: 0.8, x: x0, y: HEADER_HEIGHT + ROW_HEIGHT * row });
     this.draw.text(entry.summary)
       .font({ size: FONT_SIZE })
-      .dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row);
+      .dx(x0 + 5).dy(HEADER_HEIGHT + ROW_HEIGHT * row + 40);
     this.draw.text(entry.periodString)
       .font({ size: '12' })
       .attr({ fill: '#666' })
