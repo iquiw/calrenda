@@ -1,7 +1,7 @@
 import test from 'ava';
 
 const { createSVGWindow } = require('svgdom');
-const { registerWindow } = require('@svgdotjs/svg.js');
+const { SVG, registerWindow } = require('@svgdotjs/svg.js');
 
 import { Time } from '../lib/time';
 import { CalRendaModel } from '../lib/model';
@@ -10,7 +10,7 @@ import { CalRenda } from '../lib/renda';
 const window = createSVGWindow();
 const document = window.document;
 registerWindow(window, document);
-const canvas = document.documentElement;
+const canvas = SVG(document.documentElement);
 
 test('time to offset', t => {
   const model = new CalRendaModel();
