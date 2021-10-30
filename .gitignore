@@ -1,6 +1,7 @@
 .tern-port
 /.log/
 /.nyc_output/
+/coverage/
 /node_modules/
 /bundle.js
 *.map
