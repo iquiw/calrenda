@@ -16,7 +16,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "ava": "^5.1.0",
     "nyc": "^15.1.0",
-    "rollup": "^3.7.4",
+    "rollup": "^3.29.5",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript": "^1.0.1",
     "svgdom": "^0.1.10",
