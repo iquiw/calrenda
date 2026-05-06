@@ -1,7 +1,7 @@
 import test from 'ava';
 
-import { Time } from '../lib/time';
-import { AllDayEntry, CalRendaModel, PeriodEntry } from '../lib/model';
+import { Time } from '../lib/time.ts';
+import { AllDayEntry, CalRendaModel, PeriodEntry } from '../lib/model.ts';
 
 test('period entry constructor', t => {
   const entry = new PeriodEntry('summary', [[1, 2], [3, 4]]);

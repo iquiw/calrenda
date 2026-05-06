@@ -1,4 +1,4 @@
-import { Time, Period } from './time';
+import { Time, Period } from './time.ts';
 
 type PeriodTuple = [[number, number], [number, number]];
 type Options = { color?: string };
@@ -18,10 +18,11 @@ export class ExtendedPeriodCollision implements EntryCollision {
 }
 
 export abstract class Entry {
+  readonly summary: string;
   readonly period: Period;
   readonly color: string;
 
-  constructor(readonly summary: string, [start, end]: PeriodTuple, options?: Options) {
+  constructor(summary: string, [start, end]: PeriodTuple, options?: Options) {
     this.summary = summary;
     this.period = new Period(new Time(start[0], start[1]), new Time(end[0], end[1]));
     this.color = options && options.color || '#ff8';
@@ -58,8 +59,9 @@ export class AllDayEntry extends Entry {
 
 export class CalRendaModel {
   private entryRows: Entry[][];
-
-  constructor(private collision: EntryCollision = new ExtendedPeriodCollision()) {
+  private collision: EntryCollision;
+  constructor(collision: EntryCollision = new ExtendedPeriodCollision()) {
+    this.collision = collision;
     this.entryRows = [];
   }
 

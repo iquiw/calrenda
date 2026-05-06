@@ -1,7 +1,7 @@
 import { Svg } from '@svgdotjs/svg.js';
 
-import { CalRendaModel, Entry, ExtendedPeriodCollision } from './model';
-import { Time, Period } from './time';
+import { CalRendaModel, Entry, ExtendedPeriodCollision } from './model.ts';
+import { Time, Period } from './time.ts';
 
 const HOUR_WIDTH = 100;
 const HEADER_HEIGHT = 20;
@@ -40,8 +40,9 @@ export class CalRenda {
   private width: number;
   private height: number;
   private draw: Svg;
+  private model: CalRendaModel;
 
-  constructor(elem: HTMLElement, private model: CalRendaModel) {
+  constructor(elem: HTMLElement, model: CalRendaModel) {
     this.width = HOUR_WIDTH * (END_HOUR - START_HOUR);
     this.height = model.rowCount * ROW_HEIGHT + 40;
     this.draw = new Svg().addTo(elem).size(this.width, this.height);

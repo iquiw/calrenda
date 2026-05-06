@@ -1,11 +1,11 @@
 import test from 'ava';
 
-const { createSVGWindow } = require('svgdom');
-const { SVG, registerWindow } = require('@svgdotjs/svg.js');
+import { createSVGWindow } from 'svgdom';
+import { SVG, registerWindow } from '@svgdotjs/svg.js';
 
-import { Time } from '../lib/time';
-import { CalRendaModel } from '../lib/model';
-import { CalRenda } from '../lib/renda';
+import { Time } from '../lib/time.ts';
+import { CalRendaModel } from '../lib/model.ts';
+import { CalRenda } from '../lib/renda.ts';
 
 const window = createSVGWindow();
 const document = window.document;

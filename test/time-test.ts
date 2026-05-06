@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { Time, Period } from '../lib/time';
+import { Time, Period } from '../lib/time.ts';
 
 test('time constructor and accessors', t => {
   const time = new Time(1, 2);

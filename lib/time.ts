@@ -1,5 +1,10 @@
 export class Time {
-  constructor(readonly hour: number = 0, readonly minute: number = 0) {}
+  readonly hour: number;
+  readonly miniute: number;
+  constructor(hour: number = 0, minute: number = 0) {
+    this.hour = hour;
+    this.minute = minute;
+  }
 
   diff(other: Time): number {
     return this.toMinute() - other.toMinute();
@@ -24,7 +29,12 @@ export class Time {
 }
 
 export class Period {
-  constructor(readonly start: Time, readonly end: Time) {}
+  readonly start: Time;
+  readonly end: Time;
+  constructor(start: Time, end: Time) {
+    this.start = start;
+    this.end = end;
+  }
 
   toString(): string {
     return this.start.toString() + ' ~ ' + this.end.toString();
