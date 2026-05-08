@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: '2.1'
+orbs:
+  codecov: codecov/codecov@4.2.0
 jobs:
   build:
     docker:
@@ -37,6 +39,8 @@ jobs:
       - run: |
           npm test
 
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t ${CODECOV_TOKEN}
+      - codecov/upload
+workflows:
+  upload-to-codecov:
+    jobs:
+      - build
