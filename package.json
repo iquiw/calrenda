@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "test": "nyc --reporter=lcov ava"
+    "test": "c8 --reporter=lcov ava"
   },
   "author": "",
   "license": "ISC",
@@ -14,10 +14,9 @@
     "@svgdotjs/svg.js": "^3.2.5"
   },
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "ava": "^8.0.0",
-    "nyc": "^18.0.0",
-    "rollup": "^4.60.3",
+    "ava": "^8.0.1",
+    "c8": "^11.0.0",
+    "rollup": "^4.61.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript": "^1.0.1",
     "svgdom": "^0.1.23",
