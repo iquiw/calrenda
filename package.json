@@ -16,13 +16,13 @@
   "devDependencies": {
     "ava": "^8.0.1",
     "c8": "^11.0.0",
-    "rollup": "^4.61.0",
+    "rollup": "^4.62.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "svgdom": "^0.1.23",
+    "svgdom": "^0.1.25",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "ava": {
     "extensions": [
