@@ -1,4 +1,4 @@
-import resolve from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     sourcemap: true,
   },
   plugins: [
-    resolve(),
+    nodeResolve(),
     typescript(),
   ],
 };
