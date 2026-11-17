@@ -17,8 +17,8 @@
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.1",
     "ava": "^8.4.0",
-    "c8": "^12.0.0",
-    "rollup": "^4.68.2",
+    "c8": "^9.1.0",
+    "rollup": "^4.68.5",
     "svgdom": "^0.1.29",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
